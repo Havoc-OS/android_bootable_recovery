@@ -896,7 +896,7 @@ static bool yes_no(Device* device, const char* question1, const char* question2)
     return (chosen_item == 1);
 }
 
-static bool ask_to_continue_unverified_install(Device* device) {
+static bool ask_to_continue_unverified_install(Device* device __unused) {
 #ifdef RELEASE_BUILD
   return false;
 #else
