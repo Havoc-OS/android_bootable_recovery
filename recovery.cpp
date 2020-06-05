@@ -50,6 +50,7 @@
 
 #include "common.h"
 #include "fsck_unshare_blocks.h"
+#include "fuse_sideload.h"
 #include "install/adb_install.h"
 #include "install/fuse_sdcard_install.h"
 #include "install/install.h"
