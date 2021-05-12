@@ -188,7 +188,7 @@ static bool ask_to_wipe_data(Device* device) {
 
 static InstallResult apply_update_menu(Device* device, Device::BuiltinAction* reboot_action){
   RecoveryUI* ui = device->GetUI();
-  std::vector<std::string> headers{ "Apply update" };
+  std::vector<std::string> headers{ "Install update" };
   std::vector<std::string> items;
 
   const int item_sideload = 0;
@@ -198,7 +198,7 @@ static InstallResult apply_update_menu(Device* device, Device::BuiltinAction* re
 
   for (;;) {
     items.clear();
-    items.push_back("Apply from ADB");
+    items.push_back("ADB Sideload");
     VolumeManager::Instance()->getVolumeInfo(volumes);
     for (auto vol = volumes.begin(); vol != volumes.end(); /* empty */) {
       if (!vol->mMountable) {
@@ -389,7 +389,7 @@ static bool AskToReboot(Device* device, Device::BuiltinAction chosen_action) {
   switch (chosen_action) {
     case Device::REBOOT:
       header_text = "reboot";
-      item_text = " Reboot system now";
+      item_text = " Reboot to system";
       break;
     case Device::SHUTDOWN:
       header_text = "power off";
@@ -801,12 +801,11 @@ Device::BuiltinAction start_recovery(Device* device, const std::vector<std::stri
   // Extract the YYYYMMDD / YYYYMMDD_HHMMSS timestamp from the full version string.
   // Assume the first instance of "-[0-9]{8}-", or "-[0-9]{8}_[0-9]{6}-" in case
   // LINEAGE_VERSION_APPEND_TIME_OF_DAY is set to true has the desired date.
-  std::string model = android::base::GetProperty("ro.product.system.model", "");
   std::string ver = android::base::GetProperty("ro.havoc.version", "");
   std::string release = android::base::GetProperty("ro.havoc.releasetype", "");
 
   std::vector<std::string> title_lines = {
-    "" + model + " (Havoc-OS v" + ver + " " + release + ")",
+    "Havoc-OS v" + ver + " " + release,
   };
   if (android::base::GetBoolProperty("ro.build.ab_update", false)) {
     std::string slot = android::base::GetProperty("ro.boot.slot_suffix", "");
